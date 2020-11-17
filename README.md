@@ -19,6 +19,19 @@ var aug = require("augment-nodejs")(cv);
 ```
 <br />
 
+## Example
+```
+const cv = require("opencv4nodejs");
+const aug = require("augment-nodejs")(cv);
+
+const image = cv.imread("lenna.jpg");
+
+const augimg = aug.flip(image);
+
+cv.imshowWait("", augimg);
+```
+<br />
+
 ## API
 
 <font size="3.5px">
@@ -113,4 +126,9 @@ padHeight - number
 padWidth - number
 ```
 <br />
+<br />
+
+## Contributing
+
+You can contribute to this project.<br /> You just need to create a pull request which will be revised, merged to main branch (if the code doesn't break the project) and published as a new release.
 <br />
