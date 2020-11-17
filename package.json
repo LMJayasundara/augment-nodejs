@@ -1,0 +1,34 @@
+{
+  "name": "augment-nodejs",
+  "version": "1.0.0",
+  "description": "Basic image augmentation Node.js library for machine learning in Javascript",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LMJayasundara/augment-nodejs.git"
+  },
+  "keywords": [
+    "image",
+    "img",
+    "augmentation",
+    "imgaug",
+    "augment",
+    "processing",
+    "manipulation",
+    "node.js",
+    "node",
+    "js"
+  ],
+  "author": "J.M.L.M.Jayasundara",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LMJayasundara/augment-nodejs/issues"
+  },
+  "homepage": "https://github.com/LMJayasundara/augment-nodejs#readme"
+}
