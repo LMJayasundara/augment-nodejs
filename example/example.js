@@ -1,5 +1,5 @@
 const cv = require("opencv4nodejs");
-var aug = require("../src/aug");
+var aug = require("../src/aug")(cv);
 
 const roi = { x0: 0.3, y0: 0.3, x1: 0.8 , y1: 0.8}
 const image = cv.imread("../image/lenna.jpg");

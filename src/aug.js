@@ -1,24 +1,24 @@
-const cv = require("opencv4nodejs");
+var cv;
 
-exports.blur = (img, kernalSize, stddev) => {
+const blur = (img, kernalSize, stddev) => {
     return img.gaussianBlur(new cv.Size(kernalSize, kernalSize), stddev, stddev)
 }
 
-exports.intensity = (img, alpha, beta) => {
+const intensity = (img, alpha, beta) => {
     const betaMask = new cv.Mat(img.rows, img.cols, img.type, Array(img.channels).fill(Math.abs(beta)))
     const result = img.mul(alpha)
     return beta < 0 ? result.sub(betaMask) : result.add(betaMask)
 }
 
-exports.flip = (img) => {
+const flip = (img) => {
     return img.flip(1)
 }
 
-exports.gray = (img) => {
+const gray = (img) => {
     return img.channels === 3 ? img.cvtColor(cv.COLOR_BGR2GRAY) : img
 }
   
-exports.rotate = (img, angle) => {
+const rotate = (img, angle) => {
     const ct = new cv.Point2(img.cols / 2, img.rows / 2)
     const rot = cv.getRotationMatrix2D(ct, angle, 1.0)
   
@@ -29,7 +29,7 @@ exports.rotate = (img, angle) => {
     return img.warpAffine(rot, new cv.Size(bbox.width, bbox.height))
 }
 
-exports.zoom = (img, roi) => {
+const zoom = (img, roi) => {
     const x = Math.max(0, roi.x0) * img.cols
     const y = Math.max(0, roi.y0) * img.rows
     const maxX = Math.min(img.cols, x + Math.max(0, (roi.x1 * img.cols) - x))
@@ -43,7 +43,7 @@ exports.zoom = (img, roi) => {
     return (img.getRegion(new cv.Rect(x0, y0, x1 - x0, y1 - y0)).copy()).resize(img.rows, img.cols) 
 }
 
-exports.crop = (img, roi) => {
+const crop = (img, roi) => {
     const x = Math.max(0, roi.x0) * img.cols
     const y = Math.max(0, roi.y0) * img.rows
     const maxX = Math.min(img.cols, x + Math.max(0, (roi.x1 * img.cols) - x))
@@ -57,7 +57,7 @@ exports.crop = (img, roi) => {
     return img.getRegion(new cv.Rect(x0, y0, x1 - x0, y1 - y0)).copy()
 }
 
-exports.padding = (img, padHeight, padWidth, centerContent) => {
+const padding = (img, padHeight, padWidth, centerContent) => {
     const maxRow = Math.max(img.rows)
     const maxCols = Math.max(img.cols)
     const square = new cv.Mat(maxRow + padHeight, maxCols + padWidth, img.type, Array(img.channels).fill(Math.abs(0)))
@@ -67,4 +67,9 @@ exports.padding = (img, padHeight, padWidth, centerContent) => {
     img.copyTo(square.getRegion(new cv.Rect(dx, dy, img.cols, img.rows)))
   
     return square
+}
+
+module.exports = function (opencv4nodejs) {
+    cv = opencv4nodejs;
+    return { blur, intensity, flip, gray, rotate, zoom, crop, padding };
 }
